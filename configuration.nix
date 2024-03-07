@@ -60,7 +60,7 @@
 
         additionalOptions = ''
           Option "PalmDetection" "on"
-          Option "TappingButtonMap" "lmr"
+          Option "TappingButtonMap" "lrm"
         '';
       };
     };
@@ -82,7 +82,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
-      vscodium
     ];
   };
 
@@ -102,6 +101,7 @@
     tree
     nushell
     git
+    vscodium
   ];
 
   environment.variables = {
