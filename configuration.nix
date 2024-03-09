@@ -10,6 +10,10 @@
   boot.loader.efi.canTouchEfiVariables = false;
 
   nixpkgs.config.allowUnfree = true;
+  
+  # UNSUPPORTED PACKAGES:
+  # - Discord
+  # nixpkgs.config.allowUnsupportedSystem = true;
 
   time.timeZone = "America/Chicago";
 
@@ -70,6 +74,7 @@
     nushell
     git
     vscodium
+    webcord
   ];
 
   environment.variables = {
