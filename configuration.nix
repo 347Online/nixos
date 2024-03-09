@@ -6,54 +6,69 @@
     ./apple-silicon-support
   ];
 
-  boot.loader.systemd-boot.enable = true; 
-  boot.loader.efi.canTouchEfiVariables = false;
-
   nixpkgs.config.allowUnfree = true;
-  
-  # UNSUPPORTED PACKAGES:
-  # - Discord
-  # nixpkgs.config.allowUnsupportedSystem = true;
 
-  time.timeZone = "America/Chicago";
-
-  networking.hostName = "Anathema";
-  networking.wireless.iwd = {
-    enable = true;
-    settings.General.EnableNetworkConfiguration = true;
+  users.users.katie = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    packages = with pkgs; [
+    ];
   };
 
-  services.xserver = {
-    enable = true;
-    xkb.layout = "us";
-    displayManager = {
-      sddm.enable = true;
-      autoLogin = {
-        enable = true;
-        user = "katie";
-      };
+  environment = {
+    variables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
     };
 
-    desktopManager.plasma5.enable = true;
-    libinput = {
+    systemPackages = with pkgs; [
+      neovim
+      firefox
+      tree
+      nushell
+      git
+      vscodium
+      webcord
+    ];
+  };
+
+  programs = {
+    _1password.enable = true;
+    _1password-gui = {
       enable = true;
-      touchpad = {
-        tapping = true;
-        middleEmulation = true;
-
-        additionalOptions = ''
-          Option "PalmDetection" "on"
-          Option "TappingButtonMap" "lrm"
-        '';
-      };
+      polkitPolicyOwners = [ "katie" ];
     };
   };
 
-  services.printing.enable = true;
+  services = {
+    openssh.enable = true;
+    printing.enable = true;
+    xserver = {
+      enable = true;
+      xkb.layout = "us";
+      displayManager = {
+        sddm.enable = true;
+        autoLogin = {
+          enable = true;
+          user = "katie";
+        };
+      };
 
-  sound.enable = true;
+      desktopManager.plasma5.enable = true;
+      libinput = {
+        enable = true;
+        touchpad = {
+          tapping = true;
+          middleEmulation = true;
 
-  hardware.bluetooth.enable = true;
+          additionalOptions = ''
+            Option "PalmDetection" "on"
+            Option "TappingButtonMap" "lrm"
+          '';
+        };
+      };
+    };
+  };
 
   # Asahi-specific
   hardware.asahi.useExperimentalGPUDriver = true;
@@ -66,37 +81,17 @@
     ];
   };
 
-  ###
+  boot.loader.systemd-boot.enable = true; 
+  boot.loader.efi.canTouchEfiVariables = false;
 
-  users.users.katie = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    packages = with pkgs; [
-    ];
-  };
-
-  programs._1password.enable = true;
-  programs._1password-gui = {
+  time.timeZone = "America/Chicago";
+  sound.enable = true;
+  hardware.bluetooth.enable = true;
+  networking.hostName = "Anathema";
+  networking.wireless.iwd = {
     enable = true;
-    polkitPolicyOwners = [ "katie" ];
+    settings.General.EnableNetworkConfiguration = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    neovim
-    firefox
-    tree
-    nushell
-    git
-    vscodium
-    webcord
-  ];
-
-  environment.variables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-  };
-
-  services.openssh.enable = true;
 
   # DO NOT EDIT BELOW
   system.stateVersion = "24.05";
