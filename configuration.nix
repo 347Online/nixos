@@ -52,7 +52,21 @@
   services.printing.enable = true;
 
   sound.enable = true;
+
   hardware.bluetooth.enable = true;
+
+  # Asahi-specific
+  hardware.asahi.useExperimentalGPUDriver = true;
+  programs.light.enable = true;  
+  services.actkbd = {
+    enable = true;
+    bindings = [
+      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
+      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
+    ];
+  };
+
+  ###
 
   users.users.katie = {
     isNormalUser = true;
