@@ -1,9 +1,12 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
-    ./apple-silicon-support
+    ./machine.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -11,7 +14,7 @@
   users.users.katie = {
     shell = pkgs.nushell;
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     packages = with pkgs; [
     ];
   };
@@ -20,11 +23,11 @@
     enableDefaultPackages = true;
     packages = with pkgs; [
       font-awesome
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     ];
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   environment = {
     variables = {
@@ -48,13 +51,10 @@
       rofi
       bluetuith
       libsForQt5.kdeconnect-kde
-      alejandra
-      # steam
     ];
   };
 
   programs = {
-    steam.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -66,7 +66,7 @@
     _1password.enable = true;
     _1password-gui = {
       enable = true;
-      polkitPolicyOwners = [ "katie" ];
+      polkitPolicyOwners = ["katie"];
     };
   };
 
@@ -98,7 +98,7 @@
         };
       };
     };
- };
+  };
 
   # Asahi-specific
   hardware.asahi.useExperimentalGPUDriver = true;
@@ -106,15 +106,35 @@
   services.actkbd = {
     enable = true;
     bindings = [
-      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
-      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
-      { keys = [ 113 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/amixer set Master toggle"; }
-      { keys = [ 114 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l katie -c 'amixer -q set Master 5%- unmute'"; }
-      { keys = [ 115 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l katie -c 'amixer -q set Master 5%+ unmute'"; }
+      {
+        keys = [225];
+        events = ["key"];
+        command = "/run/current-system/sw/bin/light -A 10";
+      }
+      {
+        keys = [224];
+        events = ["key"];
+        command = "/run/current-system/sw/bin/light -U 10";
+      }
+      {
+        keys = [113];
+        events = ["key"];
+        command = "/run/current-system/sw/bin/amixer set Master toggle";
+      }
+      {
+        keys = [114];
+        events = ["key"];
+        command = "/run/current-system/sw/bin/runuser -l katie -c 'amixer -q set Master 5%- unmute'";
+      }
+      {
+        keys = [115];
+        events = ["key"];
+        command = "/run/current-system/sw/bin/runuser -l katie -c 'amixer -q set Master 5%+ unmute'";
+      }
     ];
   };
 
-  boot.loader.systemd-boot.enable = true; 
+  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
   sound.enable = true;
@@ -129,4 +149,3 @@
   # DO NOT EDIT BELOW
   system.stateVersion = "24.05";
 }
-
