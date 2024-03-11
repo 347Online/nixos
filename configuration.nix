@@ -16,7 +16,15 @@
     ];
   };
 
-  fonts.enableDefaultPackages = true;
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      font-awesome
+      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+    ];
+  };
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   environment = {
     variables = {
@@ -31,22 +39,26 @@
       git
       vscodium
       webcord
-      kitty
+      alacritty
       home-manager
       eza
       waybar
       mako
       libnotify
       rofi
+      bluetuith
+      libsForQt5.kdeconnect-kde
+      alejandra
+      # steam
     ];
   };
 
   programs = {
+    steam.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
     };
-    fish.enable = true;
     hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -59,16 +71,13 @@
   };
 
   services = {
+    # blueman.enable = true;
     openssh.enable = true;
     printing.enable = true;
     xserver = {
       enable = true;
       xkb.layout = "us";
       displayManager = {
-        sddm = {
-	  enable = true;
-	  wayland.enable = true;
-	};
         autoLogin = {
           enable = true;
           user = "katie";
@@ -89,7 +98,7 @@
         };
       };
     };
-  };
+ };
 
   # Asahi-specific
   hardware.asahi.useExperimentalGPUDriver = true;
