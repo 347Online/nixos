@@ -1,5 +1,5 @@
-{...}: {
-  imports = [./apple-silicon-support];
+{config, pkgs, ...}: {
+  imports = [<apple-silicon-support/apple-silicon-support>];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
