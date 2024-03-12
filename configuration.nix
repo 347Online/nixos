@@ -45,7 +45,7 @@
       nushell
       git
       webcord
-      alacritty
+      kitty
       eza
       waybar
       mako
