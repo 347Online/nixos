@@ -4,11 +4,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./machine.nix
-    ./hardware-configuration.nix
-  ];
-
   nixpkgs.config.allowUnfree = true;
 
   users.users.katie = {
