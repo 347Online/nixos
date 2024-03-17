@@ -5,8 +5,8 @@
   ...
 }: {
   imports = [
-    ./hardware-configuration.nix
     ./machine.nix
+    ./hardware-configuration.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -31,7 +31,12 @@
     enableDefaultPackages = true;
     packages = with pkgs; [
       font-awesome
-      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+      jetbrains-mono
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-lgc-plus
+      (nerdfonts.override {fonts = [ "JetBrainsMono" "NerdFontsSymbolsOnly"];})
     ];
   };
 
@@ -45,8 +50,7 @@
       nushell
       git
       webcord
-      alacritty
-      eza
+      kitty
       waybar
       mako
       libnotify
