@@ -12,9 +12,14 @@
     system = "aarch64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in {
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.Anathema = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
+        {
+          networking.hostName = "Anathema";
+          environment.variables.GDK_SCALE = "2";
+        }
+        ./Anathema-hardware.nix
         ./configuration.nix
       ];
     };
