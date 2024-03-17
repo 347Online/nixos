@@ -89,7 +89,10 @@
 
   sound.enable = true;
   time.timeZone = "America/Chicago";
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    settings.General.Enable = "Source,Sink,Media,Socket";
+  };
   networking.wireless.iwd = {
     enable = true;
     settings.General.EnableNetworkConfiguration = true;
