@@ -31,7 +31,7 @@
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-lgc-plus
-      (nerdfonts.override {fonts = [ "JetBrainsMono" "NerdFontsSymbolsOnly"];})
+      (nerdfonts.override {fonts = ["JetBrainsMono" "NerdFontsSymbolsOnly"];})
     ];
   };
 
@@ -99,8 +99,19 @@
   time.timeZone = "America/Chicago";
   hardware.bluetooth = {
     enable = true;
-    settings.General.Enable = "Source,Sink,Media,Socket";
+    settings = {
+      General = {
+        Name = "Hello";
+        ControllerMode = "dual";
+        FastConnectable = "true";
+        Experimental = "true";
+      };
+      Policy = {
+        AutoEnable = "true";
+      };
+    };
   };
+
   networking.wireless.iwd = {
     enable = true;
     settings.General.EnableNetworkConfiguration = true;
