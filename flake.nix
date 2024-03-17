@@ -2,29 +2,21 @@
   description = "Katie's NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
   outputs = {
     self,
     nixpkgs,
-  }: let
+  } @ inputs: let
     system = "aarch64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-
-      config = {
-        allowUnfree = true;
-      };
-    };
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
-    nixosConfigurations = {
-      myNixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit system;};
-        modules = [
-          ./configuration.nix
-        ];
-      };
+    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./configuration.nix
+      ];
     };
   };
 }
