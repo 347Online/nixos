@@ -52,6 +52,7 @@
       rofi
       bluetuith
       libsForQt5.kdeconnect-kde
+      killall
     ];
   };
 
